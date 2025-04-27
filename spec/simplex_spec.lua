@@ -303,6 +303,14 @@ describe("simplex.debug helper functions", function()
     assert.are.equal(3, dbg.choose_entering(T))
   end)
 
+  it("choose_entering picks the leftmost column on equal reduced-costs", function()
+    local dbg = require("simplex").debug
+    -- cost row with two identical negatives at j=2,3
+    local T = { { 0, -0.5, -0.5, 1 } }
+    -- should pick j=2, not j=3
+    assert.are.equal(2, dbg.choose_entering(T))
+  end)
+
   it("choose_leaving picks minimal positive ratio and ties by row index", function()
     -- T has 2 constraint rows then cost row
     local T = {
@@ -314,6 +322,18 @@ describe("simplex.debug helper functions", function()
     assert.are.equal(2, dbg.choose_leaving(T, 1))
   end)
 end)
+
+it("choose_leaving picks the smallest row index on equal ratios", function()
+  local dbg = require("simplex").debug
+  -- two rows both give ratio = 2
+  local T = {
+    { 1, 2 }, -- ratio = 2/1 = 2
+    { 2, 4 }, -- ratio = 4/2 = 2
+    {},       -- cost row ignored
+  }
+  assert.are.equal(1, dbg.choose_leaving(T, 1))
+end)
+
 
 describe("simplex_core cycle detection", function()
   it("returns INFEASIBLE when a basis repeats (cycling)", function()
