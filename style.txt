@@ -1,0 +1,25 @@
+Coding style:
+All double quotes must use " for both opening and closing.
+All single quotes must use ' for both opening and closing.
+All hyphen or subtraction signs must use -
+All code will be in Lua 5.2.1.
+Use idiomatic Lua style, except where it contradicts my instructions below (i.e. my instructions below take priority).
+Use good code organization.
+Write good names that make a thing's purpose clear.
+Write concise and clear comments. Comments should not reiterate facts that are obvious from the name of the item being commented on. All nontrivial functions must be commented. Constants must be commented.
+Write functions that do one thing well. Functions should be unit-testable. Prefer composition of functions.
+Write unit tests for nontrivial functions.
+Prefer named constants with an explanatory comment; avoid magic constants.
+Avoid stringly-typed programming. For example, make numeric enumerations like so:
+
+local Colors = {
+    RED = 1,
+    GREEN = 2,
+    BLUE = 3,
+}
+
+
+and use them like so:
+if color == Colors.RED then
+
+When you are editing, changing, or correcting existing code, provide me the changes in a code block that I can copy and paste into my eidtor. Show me, in a different code block, what I'm replacing (or provide some other clear, unambiguous description). Do not give me the entire rewritten file (unless the entire file is bad). Do not give me a git-style diff. If there are changes in distant parts of the file, then you should break the changes up into multiple blocks to avoid "rewriting" large parts of the original file.
